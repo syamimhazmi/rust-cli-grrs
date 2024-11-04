@@ -13,10 +13,11 @@ struct Cli {
 fn main() -> io::Result<()> {
     let args = Cli::parse();
 
+    // open a file and create a buffer reader
     let file = File::open(&args.path)?;
     let reader = BufReader::new(file);
 
-    for (_, line) in reader.lines().enumerate() {
+    for (_line_num, line) in reader.lines().enumerate() {
         let line = line?;
         if line.contains(&args.pattern) {
             println!("{}", line);
