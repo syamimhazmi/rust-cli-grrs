@@ -32,7 +32,7 @@ fn main() -> Result<()> {
         }
     };
     let mut reader: BufReader<File> = BufReader::new(file);
-    let mut content = String::new();
+    let mut content: String = String::new();
     // read the buffer reader and write in into String
     match reader.read_to_string(&mut content) {
         Ok(_) => (),
