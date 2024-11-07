@@ -33,6 +33,7 @@ fn main() -> Result<()> {
     };
     let mut reader: BufReader<File> = BufReader::new(file);
     let mut content: String = String::new();
+
     // read the buffer reader and write in into String
     match reader.read_to_string(&mut content) {
         Ok(_) => (),
@@ -44,11 +45,37 @@ fn main() -> Result<()> {
         }
     }
 
-    for line in content.lines() {
-        if line.contains(&args.pattern) {
-            println!("line: {}", line);
-        }
-    }
+    find_matches(&content, &args.pattern, &mut std::io::stdout())
+        .context("failed to write output")?;
 
     Ok(())
+}
+
+fn find_matches(
+    content: &str, 
+    pattern: &str, 
+    mut writer: impl std::io::Write
+) -> Result<()> {
+    for line in content.lines() {
+        if line.contains(pattern) {
+            writeln!(writer, "{}", line)
+                .with_context(|| format!("failed to write matching line: {}", line))?;
+        }
+    }
+    
+    Ok(())
+}
+
+#[test]
+fn test_find_matches() {
+    let content = "Hello World\nRust is awesome\nHello Rust\n";
+    let pattern = "Hello";
+    let mut result = Vec::new();
+
+    find_matches(content, pattern, &mut result).unwrap();
+
+    assert_eq!(
+        String::from_utf8(result).unwrap(),
+        "Hello World\nHello Rust\n",
+    );
 }
