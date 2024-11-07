@@ -1,6 +1,7 @@
 use std::{fs::File, io::{BufReader, Read}};
 use clap::Parser;
 use anyhow::{Context, Result};
+use cli_grrs::find_matches;
 use log::{error, info};
 
 #[derive(Parser)]
@@ -50,38 +51,3 @@ fn main() -> Result<()> {
 
     Ok(())
 }
-
-fn find_matches(
-    content: &str, 
-    pattern: &str, 
-    mut writer: impl std::io::Write
-) -> Result<()> {
-    for line in content.lines() {
-        if line.contains(pattern) {
-            writeln!(writer, "{}", line)
-                .with_context(|| format!("failed to write matching line: {}", line))?;
-        }
-    }
-    
-    Ok(())
-}
-
-#[cfg(test)]
-mod test {
-    use super::*;
-
-    #[test]
-    fn test_find_matches() {
-        let content = "Hello World\nRust is awesome\nHello Rust\n";
-        let pattern = "Hello";
-        let mut result = Vec::new();
-
-        find_matches(content, pattern, &mut result).unwrap();
-
-        assert_eq!(
-            String::from_utf8(result).unwrap(),
-            "Hello World\nHello Rust\n",
-        );
-    }
-}
-
