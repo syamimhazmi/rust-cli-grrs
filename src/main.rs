@@ -66,16 +66,22 @@ fn find_matches(
     Ok(())
 }
 
-#[test]
-fn test_find_matches() {
-    let content = "Hello World\nRust is awesome\nHello Rust\n";
-    let pattern = "Hello";
-    let mut result = Vec::new();
+#[cfg(test)]
+mod test {
+    use super::*;
 
-    find_matches(content, pattern, &mut result).unwrap();
+    #[test]
+    fn test_find_matches() {
+        let content = "Hello World\nRust is awesome\nHello Rust\n";
+        let pattern = "Hello";
+        let mut result = Vec::new();
 
-    assert_eq!(
-        String::from_utf8(result).unwrap(),
-        "Hello World\nHello Rust\n",
-    );
+        find_matches(content, pattern, &mut result).unwrap();
+
+        assert_eq!(
+            String::from_utf8(result).unwrap(),
+            "Hello World\nHello Rust\n",
+        );
+    }
 }
+
