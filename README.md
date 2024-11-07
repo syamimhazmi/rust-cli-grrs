@@ -30,18 +30,18 @@ The compiled binary will be available in `target/release/`
 
 Basic usage:
 ```bash
-pattern-search-cli <PATTERN> <FILE_PATH>
+./target/release/pattern-search-cli <PATTERN> <FILE_PATH>
 ```
 
 With verbose logging:
 ```bash
-pattern-search-cli <PATTERN> <FILE_PATH> -v
+./target/release/pattern-search-cli <PATTERN> <FILE_PATH> -v
 ```
 
 Example:
 ```bash
-pattern-search-cli "Hello" sample.txt
-pattern-search-cli "Error" logs/app.log -vvv
+./target/release/pattern-search-cli "Hello" sample.txt
+./target/release/pattern-search-cli "Error" logs/app.log -vvv
 ```
 
 ### Command Line Arguments
