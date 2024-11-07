@@ -62,24 +62,24 @@ echo "Hello World\nTest Line\nHello Rust" > test.txt
 2. Run basic tests:
 ```bash
 # Should find two lines containing "Hello"
-pattern-search-cli "Hello" test.txt
+./target/release/pattern-search-cli "Hello" test.txt
 
 # Should find one line containing "Test"
-pattern-search-cli "Test" test.txt
+./target/release/pattern-search-cli "Test" test.txt
 
 # Test with verbose logging
-pattern-search-cli "Hello" test.txt -v
+./target/release/pattern-search-cli "Hello" test.txt -v
 ```
 
 3. Test error handling:
 ```bash
 # Test with non-existent file
-pattern-search-cli "pattern" nonexistent.txt
+./target/release/pattern-search-cli "pattern" nonexistent.txt
 
 # Test with unreadable file (create file without read permissions)
 touch unreadable.txt
 chmod 000 unreadable.txt
-pattern-search-cli "pattern" unreadable.txt
+./target/release/pattern-search-cli "pattern" unreadable.txt
 ```
 
 ## Dependencies
