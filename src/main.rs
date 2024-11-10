@@ -1,24 +1,31 @@
-use std::{fs::File, io::{BufReader, Read}};
-use clap::Parser;
+use std::{fs::File, io::{BufReader, Read}, process};
 use anyhow::{Context, Result};
 use cli_grrs::find_matches;
 use log::{error, info};
+use structopt::StructOpt;
 
-#[derive(Parser)]
-#[command(author="Syamim Hazmi", version, about="Search for patterns in file")]
+#[derive(StructOpt)]
+#[structopt(author="Syamim Hazmi", about="Search for patterns in file")]
+#[allow(dead_code)]
 struct Cli {
-    #[arg(help="The pattern to search for in the file")]
+    #[structopt(help="The pattern to search for in the file")]
     pattern: String,
-    #[arg(help="The file path to search into")]
+    #[structopt(help="The file path to search into", parse(from_os_str))]
     path: std::path::PathBuf,
-    #[command(flatten)]
-    verbose: clap_verbosity_flag::Verbosity
+    #[structopt(short)]
+    verbose: bool
 }
 
 fn main() -> Result<()> {
     env_logger::init();
 
-    let args = Cli::parse();
+    let args = Cli::from_args();
+
+    // Check for empty pattern first
+    if args.pattern.is_empty() {
+        eprintln!("unexpected argument '' found");
+        process::exit(1);
+    }
 
     info!("starting up");
 
