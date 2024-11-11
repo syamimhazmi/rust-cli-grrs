@@ -51,4 +51,21 @@ mod test {
             "unexpected argument '' found",
         );
     }
+
+    // #[test]
+    // fn test_case_sensitivity_pattern() {
+    //     let content = "Hello World\nHELLO RUST\nhello rust\n";
+    //     let pattern = "Hello";
+    //     let mut result = Vec::new();
+    //     
+    //     let result = find_matches(content, pattern, &mut result);
+    //     println!("result: {:?}", result.unwrap());
+    //     process::exit(1);
+    //
+    //     // assert!(err.is_err());
+    //     // assert_eq!(
+    //     //     err.unwrap_err().to_string(), 
+    //     //     "unexpected argument '' found",
+    //     // );
+    // }
 }

@@ -21,7 +21,6 @@ fn main() -> Result<()> {
 
     let args = Cli::from_args();
 
-    // Check for empty pattern first
     if args.pattern.is_empty() {
         eprintln!("unexpected argument '' found");
         process::exit(1);
